@@ -3,6 +3,7 @@
       apt:
           name: curl
           update_cache: yes
+    - apt: name="unzip"
 
     - include_tasks: install_java.yml
     - include_tasks: install_jce.yml
