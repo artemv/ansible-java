@@ -1,11 +1,13 @@
     - name: get install JVM version
       shell: java -version 2>&1 | awk '/java version/ { print $3 };' | sed 's/"//g'
       register: installed_jvm_version
+      changed_when: false
 
     - name: get latest JVM URL
       shell: "curl -s '{{ORACLE_URL}}' | grep -ioE 'http://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1"
       register: JVM_URL
       run_once: true
+      changed_when: false
 
     - when: JVM_URL.rc != 0 or JVM_URL.stderr != ""
       block:
@@ -18,9 +20,9 @@
 
     - when: upgrade_needed
       block:
+
       - stat: path="{{JVM_ZIP}}"
         register: jvm_zip_file
-      - debug: msg="{{JVM_ZIP}}={{jvm_zip_file}}"
 
       - name: download JVM
         when: not jvm_zip_file.stat.exists
@@ -33,6 +35,7 @@
         shell: rm -rf /tmp/jvm; mkdir /tmp/jvm; tar -zxvf {{JVM_ZIP}} -C /tmp/jvm
 
       - file: path="{{JVM_PATH}}" state=directory
+
       - name: install JVM
         shell: rm -rf {{JVM_PATH}}/; mv /tmp/jvm/`ls /tmp/jvm`/ {{JVM_PATH}}/
 
