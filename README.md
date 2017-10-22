@@ -1,4 +1,4 @@
-Moshe-Immerman.javatools
+Moshe-Immerman.javatools [![Build Status](https://travis-ci.org/Moshe-Immerman/ansible-javatools.svg?branch=master)](https://travis-ci.org/Moshe-Immerman/ansible-javatools)
 =========
 
 Install the latest Oracle JDK 8 with JCE extensions and various java packages.
