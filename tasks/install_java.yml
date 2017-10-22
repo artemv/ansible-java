@@ -40,5 +40,11 @@
     - name: remove installation file
       when: REMOVE_INSTALL_FILES
       file:
-          src: "{{JVM_ZIP}}"
+          path: "{{JVM_ZIP}}"
+          state: absent
+
+    - name: remove installation file
+      when: REMOVE_INSTALL_FILES
+      file:
+          path: "/tmp/jvm"
           state: absent

@@ -13,3 +13,9 @@
     - name: install JCE
       shell: "unzip -j -o /tmp/unlimited_jce.zip -d {{JVM_PATH}}/jre/lib/security/"
       when: INSTALL_JCE and not jce.stat.exists
+
+    - name: remove installation file
+      when: REMOVE_INSTALL_FILES
+      file:
+          path:  /tmp/unlimited_jce.zip
+          state: absent
