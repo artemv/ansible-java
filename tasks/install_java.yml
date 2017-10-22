@@ -26,6 +26,7 @@
       - name: unzip JVM
         shell: rm -rf /tmp/jvm; mkdir /tmp/jvm; tar -zxvf {{JVM_ZIP}} -C /tmp/jvm
 
+      - file: path="{{JVM_PATH}}" state=directory
       - name: install JVM
         shell: mv /tmp/jvm/`ls /tmp/jvm`/ {{JVM_PATH}}
 
