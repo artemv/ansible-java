@@ -1,4 +1,9 @@
 
+    - name: install dependencies
+      package:
+          name: curl
+          state: present
+
     - include_tasks: install_java.yml
     - include_tasks: install_jce.yml
 
