@@ -1,5 +1,8 @@
+
     - include_tasks: install_java.yml
     - include_tasks: install_jce.yml
+
     - name: install packages
+      when: not JVM_ONLY and vars[item.bin|basename] != 'false'
       with_items: "{{packages}}"
       include_tasks: "install_pkg.yml"
