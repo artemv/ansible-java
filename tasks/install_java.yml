@@ -29,7 +29,7 @@
 
       - file: path="{{JVM_PATH}}" state=directory
       - name: install JVM
-        shell: mv /tmp/jvm/`ls /tmp/jvm`/ {{JVM_PATH}}/
+        shell: rm -rf {{JVM_PATH}}/; mv /tmp/jvm/`ls /tmp/jvm`/ {{JVM_PATH}}/
 
       - name: link commands
         file:
