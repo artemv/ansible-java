@@ -6,7 +6,7 @@
       shell: "curl -s '{{ORACLE_URL}}' | grep -ioE 'http://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1"
       register: JVM_URL
       run_once: true
-
+    - debug: msg="{{JVM_URL.stdout}} -> {{JVM_URL.stderr}}"
     - set_fact: JVM_ZIP="/tmp/{{JVM_URL.stdout | basename}}"
     - set_fact: jvm_ver="{{installed_jvm_version.stdout | regex_replace('_', 'u') | regex_replace('1.8.0', '8') }}"
     - set_fact: upgrade_needed="{{jvm_ver == '' or not jvm_ver in JVM_ZIP }}"
@@ -29,7 +29,7 @@
 
       - file: path="{{JVM_PATH}}" state=directory
       - name: install JVM
-        shell: mv /tmp/jvm/`ls /tmp/jvm`/ {{JVM_PATH}}
+        shell: mv /tmp/jvm/`ls /tmp/jvm`/ {{JVM_PATH}}/
 
       - name: link commands
         file:
