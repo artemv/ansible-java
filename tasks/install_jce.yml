@@ -1,0 +1,15 @@
+    - name: check if JCE policy exists
+      stat: path="{{JVM_PATH}}/jre/lib/security/local_policy.jar"
+      register: jce
+      when: INSTALL_JCE
+
+    - name: get JCE
+      get_url:
+        url:     "{{ JCE_URL }}"
+        headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+        dest:    "/tmp/unlimited_jce.zip"
+      when: INSTALL_JCE and not jce.stat.exists
+
+    - name: install JCE
+      shell: "unzip -j -o /tmp/unlimited_jce.zip -d {{JVM_PATH}}/jre/lib/security/"
+      when: INSTALL_JCE and not jce.stat.exists

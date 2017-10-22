@@ -1,0 +1,38 @@
+    - name: get install JVM version
+      shell: java -version 2>&1 | awk '/java version/ { print $3 };' | sed 's/"//g'
+      register: installed_jvm_version
+
+    - name: get latest JVM URL
+      shell: "curl -s '{{ORACLE_URL}}' | grep -ioE 'http://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1"
+      register: JVM_URL
+      run_once: true
+
+    - set_fact: JVM_ZIP="{{JVM_URL.stdout | basename}}"
+    - set_fact: jvm_ver="{{installed_jvm_version.stdout | regex_replace('_', 'u') | regex_replace('1.8.0', '8') }}"
+    - set_fact: upgrade_needed="{{jvm_ver == '' or not jvm_ver in JVM_ZIP }}"
+
+    - when: upgrade_needed
+      block:
+      - stat: path="{{JVM_ZIP}}"
+        register: jvm_zip_file
+
+      - name: download JVM
+        when: not jvm_zip_file.stat.exists
+        get_url:
+          url:     "{{ JVM_URL.stdout }}"
+          headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+          dest:    "/tmp/{{JVM_ZIP}}"
+
+      - name: unzip JVM
+        shell: rm -rf /tmp/jvm; mkdir /tmp/jvm; tar -zxvf /tmp/{{JVM_ZIP}} -C /tmp/jvm
+
+      - name: install JVM
+        shell: mv /tmp/jvm/`ls /tmp/jvm`/ {{JVM_PATH}}
+
+      - name: link commands
+        file:
+          src:  "{{item}}"
+          force: yes
+          dest: "{{INSTALL_PATH}}/bin/{{item | basename}}"
+          state: link
+        with_fileglob: "{{JVM_PATH}}/bin/*"

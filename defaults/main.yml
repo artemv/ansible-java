@@ -1,0 +1,27 @@
+INSTALL_PATH: /usr/local
+JVM_PATH: /usr/lib/jvm/java-8-oracle
+INSTALL_JCE: True
+gradle: 2.7
+ant: 1.9.9
+groovy: 2.4.12
+sbt: 1.0.2
+mvn: 3.5.0
+
+ORACLE_URL: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+JCE_URL: http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
+packages:
+    - url: https://services.gradle.org/distributions/gradle-{{gradle}}-bin.zip
+      folder: gradle-{{gradle}}
+      bin: bin/gradle
+    - url: https://www-eu.apache.org/dist//ant/binaries/apache-ant-{{ant}}-bin.zip
+      folder: apache-ant-{{ant}}
+      bin: bin/ant
+    - url: https://dl.bintray.com/groovy/maven/apache-groovy-binary-{{groovy}}.zip
+      folder: groovy-{{groovy}}
+      bin: bin/groovy
+    - url: https://github.com/sbt/sbt/releases/download/v{{sbt}}/sbt-{{sbt}}.tgz
+      folder: sbt
+      bin: bin/sbt
+    - url: http://www-eu.apache.org/dist/maven/maven-3/{{mvn}}/binaries/apache-maven-{{mvn}}-bin.zip
+      folder: apache-maven-{{mvn}}
+      bin: bin/mvn

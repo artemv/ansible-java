@@ -1,0 +1,24 @@
+- set_fact: arg="{{(item.bin|basename)}}"
+- set_fact: enabled=false
+- set_fact: enabled=true
+  when: "arg in vars and vars[arg] != '' and vars[arg] != 'false'"
+- debug: msg="{{vars[arg]}}"
+
+- name: "download {{item.url}}"
+  when: enabled
+  register: pkg
+  unarchive:
+    src: "{{item.url}}"
+    creates: "{{INSTALL_PATH}}/{{item.folder}}"
+    remote_src: yes
+    dest: "{{INSTALL_PATH}}"
+
+- name: "add {{ item.bin | basename }} to path"
+  when: enabled
+  file:
+    src:  "{{INSTALL_PATH}}/{{item.folder}}/{{item.bin}}"
+    force: yes
+    dest: "{{INSTALL_PATH}}/bin/{{item.bin | basename }}"
+    state: link
+  when: pkg.skipped is not defined
+
