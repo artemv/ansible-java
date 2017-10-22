@@ -15,6 +15,7 @@
       block:
       - stat: path="{{JVM_ZIP}}"
         register: jvm_zip_file
+      - debug: msg="{{JVM_ZIP}}={{jvm_zip_file}}"
 
       - name: download JVM
         when: not jvm_zip_file.stat.exists
