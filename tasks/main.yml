@@ -1,8 +1,8 @@
 
     - name: install dependencies
-      package:
+      apt:
           name: curl
-          state: present
+          update_cache: yes
 
     - include_tasks: install_java.yml
     - include_tasks: install_jce.yml
