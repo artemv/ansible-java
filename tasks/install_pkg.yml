@@ -22,3 +22,9 @@
     state: link
   when: pkg.skipped is not defined
 
+- name: remove download
+  when: REMOVE_INSTALL_FILES
+  file:
+    src: "{{ INSTALL_PATH }}/{{ item.url | basename }}"
+    state: absent
+

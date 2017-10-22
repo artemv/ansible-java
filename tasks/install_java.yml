@@ -7,7 +7,7 @@
       register: JVM_URL
       run_once: true
 
-    - set_fact: JVM_ZIP="{{JVM_URL.stdout | basename}}"
+    - set_fact: JVM_ZIP="/tmp/{{JVM_URL.stdout | basename}}"
     - set_fact: jvm_ver="{{installed_jvm_version.stdout | regex_replace('_', 'u') | regex_replace('1.8.0', '8') }}"
     - set_fact: upgrade_needed="{{jvm_ver == '' or not jvm_ver in JVM_ZIP }}"
 
@@ -21,10 +21,10 @@
         get_url:
           url:     "{{ JVM_URL.stdout }}"
           headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
-          dest:    "/tmp/{{JVM_ZIP}}"
+          dest:    "{{JVM_ZIP}}"
 
       - name: unzip JVM
-        shell: rm -rf /tmp/jvm; mkdir /tmp/jvm; tar -zxvf /tmp/{{JVM_ZIP}} -C /tmp/jvm
+        shell: rm -rf /tmp/jvm; mkdir /tmp/jvm; tar -zxvf {{JVM_ZIP}} -C /tmp/jvm
 
       - name: install JVM
         shell: mv /tmp/jvm/`ls /tmp/jvm`/ {{JVM_PATH}}
@@ -36,3 +36,9 @@
           dest: "{{INSTALL_PATH}}/bin/{{item | basename}}"
           state: link
         with_fileglob: "{{JVM_PATH}}/bin/*"
+
+    - name: remove installation file
+      when: REMOVE_INSTALL_FILES
+      file:
+          src: "{{JVM_ZIP}}"
+          state: absent

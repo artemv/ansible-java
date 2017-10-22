@@ -1,6 +1,7 @@
 INSTALL_PATH: /usr/local
 JVM_PATH: /usr/lib/jvm/java-8-oracle
 INSTALL_JCE: True
+REMOVE_INSTALL_FILES: True
 gradle: 2.7
 ant: 1.9.9
 groovy: 2.4.12
