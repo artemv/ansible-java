@@ -6,7 +6,7 @@ env:
   - distro: centos7
 
 script:
-  - sudo pip install ansible-run
+  - sudo pip install ansible-run>=2.0
   - image=$distro ansible-test tests/test.yml
 
 notifications:
