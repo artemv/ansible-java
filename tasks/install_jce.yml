@@ -1,7 +1,6 @@
     - name: check if JCE policy exists
       stat: path="{{JVM_PATH}}/jre/lib/security/local_policy.jar"
       register: jce
-      when: INSTALL_JCE
 
     - name: get JCE
       get_url:
@@ -9,14 +8,20 @@
         headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
         dest:    "/tmp/unlimited_jce.zip"
         validate_certs: "{{validate_certs}}"
-      when: INSTALL_JCE and not jce.stat.exists
+      when: not jce.stat.exists
+      changed_when: False
 
     - name: install JCE
-      shell: "unzip -j -o /tmp/unlimited_jce.zip -d {{JVM_PATH}}/jre/lib/security/"
-      when: INSTALL_JCE and not jce.stat.exists
+      unarchive:
+          src: /tmp/unlimited_jce.zip
+          dest: "{{JVM_PATH}}/jre/lib/security/"
+          extra_opts: -j -o
+
+      when: not jce.stat.exists
 
     - name: remove installation file
       when: REMOVE_INSTALL_FILES
+      changed_when: false
       file:
           path:  /tmp/unlimited_jce.zip
           state: absent

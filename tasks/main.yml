@@ -1,9 +1,2 @@
-    - name: install dependencies
-      package:
-          name: "{{item}}"
-      with_items:
-        - curl
-        - unzip
-
     - include_tasks: install_java.yml
     - include_tasks: install_jce.yml

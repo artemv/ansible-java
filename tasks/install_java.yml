@@ -3,10 +3,16 @@
       register: installed_jvm_version
       changed_when: false
 
-    - name: get latest JVM URL
-      shell: "curl -sk '{{ORACLE_URL}}' | grep -ioE 'http://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1"
+    - name: get download links
+      get_url:
+        url: "{{ORACLE_URL}}"
+        dest: '/tmp/links'
+        validate_certs: "{{validate_certs}}"
+      changed_when: false
+
+    - name: get latest url
+      shell: cat /tmp/links | grep -ioE 'http://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1
       register: JVM_URL
-      run_once: true
       changed_when: false
 
     - when: JVM_URL.rc != 0 or JVM_URL.stderr != ""
@@ -24,7 +30,7 @@
       - stat: path="{{JVM_ZIP}}"
         register: jvm_zip_file
 
-      - name: download JVM
+      - name: "downloading {{JVM_URL.stdout}}"
         when: not jvm_zip_file.stat.exists
         get_url:
           url:     "{{ JVM_URL.stdout }}"
