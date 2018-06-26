@@ -8,7 +8,7 @@ env:
   - distro: centos7
 
 script:
-  - pip install ansible-run
+  - sudo pip install ansible-run
   - image=geerlingguy/docker-$distro-ansible ansble-test tests/test.yml
 
 
