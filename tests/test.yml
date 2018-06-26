@@ -2,6 +2,6 @@
 - hosts: all
   tasks:
     - include_role:
-        name: role_under_test
+        name: ../../ansible-java
       vars:
         validate_certs: false

@@ -2,15 +2,12 @@
 services: docker
 
 env:
-  - distro: ubuntu1604
   - distro: ubuntu1804
-  - distro: debian8
   - distro: centos7
 
 script:
   - sudo pip install ansible-run
-  - image=geerlingguy/docker-$distro-ansible ansible-test tests/test.yml
-
+  - image=$distro ansible-test tests/test.yml
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
