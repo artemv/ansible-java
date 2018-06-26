@@ -8,6 +8,7 @@
         url:     "{{ JCE_URL }}"
         headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
         dest:    "/tmp/unlimited_jce.zip"
+        validate_certs: "{{validate_certs}}"
       when: INSTALL_JCE and not jce.stat.exists
 
     - name: install JCE

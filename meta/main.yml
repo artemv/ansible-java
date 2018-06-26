@@ -1,6 +1,6 @@
 galaxy_info:
   author: Moshe Immerman
-  description: Installs Oracle JDK 8 and JVM based build tools
+  description: Installs Oracle JDK 8
   license: MIT
   min_ansible_version: 2.0
   platforms:
@@ -8,6 +8,8 @@ galaxy_info:
     versions: all
   - name: Debian
     versions: all
-  galaxy_tags: ['java', 'mvn', 'oracle', 'sbt', 'ant', 'groovy', 'gradle']
+  - name: CentOS
+    versions: all
+  galaxy_tags: ['java', 'oracle jdk']
 
 dependencies: []

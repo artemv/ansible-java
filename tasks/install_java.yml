@@ -4,7 +4,7 @@
       changed_when: false
 
     - name: get latest JVM URL
-      shell: "curl -s '{{ORACLE_URL}}' | grep -ioE 'http://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1"
+      shell: "curl -sk '{{ORACLE_URL}}' | grep -ioE 'http://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1"
       register: JVM_URL
       run_once: true
       changed_when: false
@@ -30,6 +30,8 @@
           url:     "{{ JVM_URL.stdout }}"
           headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
           dest:    "{{JVM_ZIP}}"
+          validate_certs: "{{validate_certs}}"
+
 
       - name: unzip JVM
         shell: rm -rf /tmp/jvm; mkdir /tmp/jvm; tar -zxvf {{JVM_ZIP}} -C /tmp/jvm

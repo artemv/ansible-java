@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - include_role:
+        name: ../../ansible-java
+      vars:
+        validate_certs: false

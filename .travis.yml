@@ -8,6 +8,9 @@ env:
   - distro: debian8
     playbook: test.yml
 
+  - distro: rhel
+    playbook: test.yml
+
 
 script:
   # Configure test script so we can run extra tests after playbook is run.
@@ -23,9 +26,6 @@ script:
 
   - 'docker exec --tty ${container_id} env TERM=xterm which java'
   - 'docker exec --tty ${container_id} env TERM=xterm java -version'
-  - 'docker exec --tty ${container_id} env TERM=xterm mvn -version'
-  - 'docker exec --tty ${container_id} env TERM=xterm ant -version'
-  - 'docker exec --tty ${container_id} env TERM=xterm groovy -version'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
