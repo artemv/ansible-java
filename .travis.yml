@@ -9,7 +9,7 @@ env:
 
 script:
   - sudo pip install ansible-run
-  - image=geerlingguy/docker-$distro-ansible ansble-test tests/test.yml
+  - image=geerlingguy/docker-$distro-ansible ansible-test tests/test.yml
 
 
 notifications:
