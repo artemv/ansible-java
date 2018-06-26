@@ -1,2 +1,10 @@
+    - name: install dependencies
+      yum: name=unzip update_cache=true
+      when: ansible_os_family == "RedHat"
+
+    - name: install dependencies
+      apt: name=unzip update_cache=true
+      when: ansible_os_family == "Debian"
+
     - include_tasks: install_java.yml
     - include_tasks: install_jce.yml
