@@ -15,7 +15,7 @@
       unarchive:
           src: /tmp/unlimited_jce.zip
           dest: "{{JVM_PATH}}/jre/lib/security/"
-          extra_opts: -j -o
+          extra_opts: -j
 
       when: not jce.stat.exists
 
