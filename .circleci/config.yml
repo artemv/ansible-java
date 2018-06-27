@@ -10,7 +10,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            pip install ansible-run
+            sudo pip install ansible-run
             image=ubuntu1804 ansible-test tests/test.yml
   centos7:
     docker:
@@ -22,7 +22,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            pip install ansible-run
+            sudo pip install ansible-run
             image=centos7 ansible-test tests/test.yml
 
 workflows:
