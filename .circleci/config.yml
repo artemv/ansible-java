@@ -1,32 +1,24 @@
 version: 2
 jobs:
   ubuntu1804:
-    docker:
-      - image: circleci/python:3.6.1
+    machine: true
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: install dependencies
           command: |
-            echo $PWD
-            export PWD=$(pwd)
-            ls
-            sudo pip install ansible-run>=2.2
+            sudo pip install "ansible-run>=2.2"
             image=ubuntu1804 ansible-test tests/test.yml
   centos7:
-    docker:
-      - image: circleci/python:3.6.1
+    machine: true
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: install dependencies
           command: |
-            echo $pwd
-            ls
-            export PWD=$(pwd)
-            sudo pip install ansible-run>=2.2
+            sudo pip install "ansible-run>=2.2"
             image=centos7 ansible-test tests/test.yml
 
 workflows:
