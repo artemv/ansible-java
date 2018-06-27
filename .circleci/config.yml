@@ -9,7 +9,8 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            echo $pwd
+            echo $PWD
+            export PWD=$(cwd)
             ls
             sudo pip install ansible-run>=2.2
             image=ubuntu1804 ansible-test tests/test.yml
@@ -24,6 +25,7 @@ jobs:
           command: |
             echo $pwd
             ls
+            export PWD=$(cwd)
             sudo pip install ansible-run>=2.2
             image=centos7 ansible-test tests/test.yml
 
