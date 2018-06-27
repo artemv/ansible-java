@@ -7,7 +7,8 @@ env:
 
 script:
   - sudo pip install "ansible-run>=2.1"
-  - image=$distro ansible-test tests/test.yml
+  - image=$distro ansible-test test/test.yml
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+]
