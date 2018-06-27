@@ -9,7 +9,8 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            cd project
+            echo $pwd
+            ls
             sudo pip install ansible-run>=2.2
             image=ubuntu1804 ansible-test tests/test.yml
   centos7:
@@ -21,7 +22,8 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            cd project
+            echo $pwd
+            ls
             sudo pip install ansible-run>=2.2
             image=centos7 ansible-test tests/test.yml
 
