@@ -22,7 +22,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            sudo pip install ansible-run
+            sudo pip install ansible-run>=2.2
             image=centos7 ansible-test tests/test.yml
 
 workflows:
