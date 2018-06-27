@@ -3,19 +3,19 @@ jobs:
   ubuntu1804:
     docker:
       - image: circleci/python:3.6.1
-    working_directory: ~/repo
+    working_directory: ~/$CIRCLE_PROJECT_REPONAME
     steps:
       - checkout
       - setup_remote_docker
       - run:
           name: install dependencies
           command: |
-            sudo pip install ansible-run
+            sudo pip install ansible-run>=2.2
             image=ubuntu1804 ansible-test tests/test.yml
   centos7:
     docker:
       - image: circleci/python:3.6.1
-    working_directory: ~/repo
+    working_directory: ~/$CIRCLE_PROJECT_REPONAME
     steps:
       - checkout
       - setup_remote_docker
