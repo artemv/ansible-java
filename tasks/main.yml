@@ -14,4 +14,4 @@
 
         - include_tasks: install_java.yml
         - include_tasks: install_jce.yml
-      when: "installed_jvm_version.rc != 0 or upgrade"
+      when: "installed_jvm_version.rc != 0 or installed_jvm_version.stdout == '' or upgrade"
