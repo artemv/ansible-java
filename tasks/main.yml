@@ -1,10 +1,17 @@
-    - name: install dependencies
-      yum: name=unzip update_cache=true
-      when: ansible_os_family == "RedHat"
+    - name: get install JVM version
+      shell: java -version 2>&1 | awk '/java version/ { print $3 };' | sed 's/"//g'
+      register: installed_jvm_version
+      changed_when: false
 
-    - name: install dependencies
-      apt: name=unzip update_cache=true
-      when: ansible_os_family == "Debian"
+    - block:
+        - name: install dependencies
+          yum: name=unzip update_cache=true
+          when: ansible_os_family == "RedHat"
 
-    - include_tasks: install_java.yml
-    - include_tasks: install_jce.yml
+        - name: install dependencies
+          apt: name=unzip update_cache=true
+          when: ansible_os_family == "Debian"
+
+        - include_tasks: install_java.yml
+        - include_tasks: install_jce.yml
+      when: "installed_jvm_version.rc != 0 or upgrade"
