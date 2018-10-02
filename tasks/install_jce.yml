@@ -12,11 +12,7 @@
       changed_when: False
 
     - name: install JCE
-      unarchive:
-          src: /tmp/unlimited_jce.zip
-          dest: "{{JVM_PATH}}/jre/lib/security/"
-          extra_opts: -j
-
+      shell: "unzip -jo /tmp/unlimited_jce.zip -d {{JVM_PATH}}/jre/lib/security/"
       when: not jce.stat.exists
 
     - name: remove installation file
