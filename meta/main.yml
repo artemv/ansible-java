@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: java
   author: Moshe Immerman
   description: Installs Oracle JDK 8
   license: MIT
