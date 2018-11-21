@@ -2,12 +2,12 @@
 services: docker
 
 env:
-  - distro: ubuntu1804
-  - distro: centos7
+  - distro=ubuntu1804 image=moshloop/docker-ubuntu1804-ansible:3.1.1
+  - distro=centos7 image=centos7
 
 script:
-  - sudo pip install "ansible-run==2.8"
-  - image=$distro ansible-test test/test.yml
+  - sudo pip install "ansible-run>=2.1"
+  - ansible-test test/test.yml
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
