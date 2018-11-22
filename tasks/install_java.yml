@@ -6,7 +6,7 @@
       changed_when: false
 
     - name: get latest url
-      shell: cat /tmp/links | grep -ioE 'http://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1
+      shell: cat /tmp/links | grep -ioE 'http.?://download.oracle.com/otn-pub/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1
       register: JVM_URL
       changed_when: false
 
