@@ -1,4 +1,5 @@
     - set_fact: JDK_URL="{{ lookup('env', 'JDK_URL') }}"
+    - set_fact: JDK_URL="{{ lookup('env', 'JVM_ZIPFILE') }}"
     - debug: msg="JDK_URL = {{JDK_URL}}"
 
     - name: get latest url
@@ -11,11 +12,11 @@
       - debug: msg="Getting JVM url failed {{JVM_URL.stdout}} -> {{JVM_URL.stderr}}"
       - meta: end_play
 
-    - when: JVM_ZIPFILE is undefined
+    - when: JVM_ZIPFILE == ""
       block:
       - set_fact: JVM_ZIP="/tmp/{{JVM_URL.stdout | basename}}"
 
-    - when: JVM_ZIPFILE is defined
+    - when: JVM_ZIPFILE != ""
       block:
       - set_fact: JVM_ZIP="/tmp/{{JVM_ZIPFILE}}"
 
