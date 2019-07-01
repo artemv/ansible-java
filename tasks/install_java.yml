@@ -1,12 +1,8 @@
-    - name: get download links
-      get_url:
-        url: "{{ORACLE_URL}}"
-        dest: '/tmp/links'
-        validate_certs: "{{validate_certs}}"
-      changed_when: false
+    - set_fact: JDK_URL="{{ lookup('env', 'JDK_URL') }}"
+    - debug: msg="JDK_URL = {{JDK_URL}}"
 
     - name: get latest url
-      shell: cat /tmp/links | grep -ioE 'http.?://download.oracle.com/.*/java/jdk/.*?/jdk-8u.*?-linux-x64.tar.gz' | tail -1
+      shell: echo ${JDK_URL}
       register: JVM_URL
       changed_when: false
 
