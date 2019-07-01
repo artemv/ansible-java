@@ -11,7 +11,14 @@
       - debug: msg="Getting JVM url failed {{JVM_URL.stdout}} -> {{JVM_URL.stderr}}"
       - meta: end_play
 
-    - set_fact: JVM_ZIP="/tmp/{{JVM_URL.stdout | basename}}"
+    - when: JVM_ZIPFILE is undefined
+      block:
+      - set_fact: JVM_ZIP="/tmp/{{JVM_URL.stdout | basename}}"
+
+    - when: JVM_ZIPFILE is defined
+      block:
+      - set_fact: JVM_ZIP="/tmp/{{JVM_ZIPFILE}}"
+
     - set_fact: jvm_ver="{{installed_jvm_version.stdout | regex_replace('_', 'u') | regex_replace('1.8.0', '8') }}"
     - set_fact: upgrade_needed="{{jvm_ver == '' or not jvm_ver in JVM_ZIP }}"
 
