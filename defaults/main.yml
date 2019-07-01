@@ -5,7 +5,6 @@ INSTALL_JCE: True
 
 REMOVE_INSTALL_FILES: True
 
-ORACLE_URL: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 JCE_URL: http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
 validate_certs: True
 upgrade: False
