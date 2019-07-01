@@ -1,6 +1,6 @@
     - set_fact: JDK_URL="{{ lookup('env', 'JDK_URL') }}"
-    - set_fact: JDK_URL="{{ lookup('env', 'JVM_ZIPFILE') }}"
-    - debug: msg="JDK_URL = {{JDK_URL}}"
+    - set_fact: JVM_ZIPFILE="{{ lookup('env', 'JVM_ZIPFILE') }}"
+    - debug: msg="JDK_URL = {{JDK_URL}}; JVM_ZIPFILE = {{JVM_ZIPFILE}}"
 
     - name: get latest url
       shell: echo ${JDK_URL}
