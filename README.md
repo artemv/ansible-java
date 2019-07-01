@@ -1,4 +1,4 @@
-moshloop.java [![Build Status](https://travis-ci.org/moshloop/ansible-java.svg?branch=master)](https://travis-ci.org/moshloop/ansible-java)
+artemv.java [![Build Status](https://travis-ci.org/artemv/ansible-java.svg?branch=master)](https://travis-ci.org/artemv/ansible-java)
 =========
 
 Install the latest Oracle JDK 8 with JCE extensions and various java packages.
