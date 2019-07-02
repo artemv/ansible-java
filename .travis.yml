@@ -6,7 +6,7 @@ env:
 
 script:
   - sudo pip install "ansible-run>=2.1"
-  - bash .travis/prepare.sh
+  - sh .travis/prepare.sh
   - image=$distro ansible-test test/test.yml
 
 notifications:
