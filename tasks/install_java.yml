@@ -2,9 +2,11 @@
     - set_fact: JVM_ZIPFILE="{{ lookup('env', 'JVM_ZIPFILE') }}"
     - when: jdk_url is defined
       block:
+      - debug: msg="jdk_url is defined, {{ jdk_url }}"
       - set_fact: JDK_URL="{{ jdk_url }}"
     - when: jvm_zipfile is defined
       block:
+      - debug: msg="jvm_zipfile is defined, {{ jvm_zipfile }}"
       - set_fact: JVM_ZIPFILE="{{ jvm_zipfile }}"
 
     - debug: msg="JDK_URL={{ JDK_URL }}"
