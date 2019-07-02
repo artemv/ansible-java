@@ -1,20 +1,19 @@
     - set_fact: JDK_URL="{{ lookup('env', 'JDK_URL') }}"
     - set_fact: JVM_ZIPFILE="{{ lookup('env', 'JVM_ZIPFILE') }}"
-    - debug: msg="JDK_URL = {{JDK_URL}}; JVM_ZIPFILE = {{JVM_ZIPFILE}}"
-
-    - name: get latest url
-      shell: echo ${JDK_URL}
-      register: JVM_URL
-      changed_when: false
-
-    - when: JVM_URL.rc != 0 or JVM_URL.stderr != ""
+    - when: jdk_url is defined
       block:
-      - debug: msg="Getting JVM url failed {{JVM_URL.stdout}} -> {{JVM_URL.stderr}}"
+      - set_fact: JDK_URL="{{ jdk_url }}"
+    - when: jvm_zipfile is defined
+      block:
+      - set_fact: JVM_ZIPFILE="{{ jvm_zipfile }}"
+    - when: JDK_URL == ""
+      block:
+      - debug: msg="No JDK url specified"
       - meta: end_play
 
     - when: JVM_ZIPFILE == ""
       block:
-      - set_fact: JVM_ZIP="/tmp/{{JVM_URL.stdout | basename}}"
+      - set_fact: JVM_ZIP="/tmp/{{JDK_URL | basename}}"
 
     - when: JVM_ZIPFILE != ""
       block:
@@ -29,10 +28,10 @@
       - stat: path="{{JVM_ZIP}}"
         register: jvm_zip_file
 
-      - name: "downloading {{JVM_URL.stdout}}"
+      - name: "downloading {{JVM_ZIP}}"
         when: not jvm_zip_file.stat.exists
         get_url:
-          url:     "{{ JVM_URL.stdout }}"
+          url:     "{{ JDK_URL }}"
           headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
           dest:    "{{JVM_ZIP}}"
           validate_certs: "{{validate_certs}}"
