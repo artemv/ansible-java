@@ -7,6 +7,7 @@
       block:
       - set_fact: JVM_ZIPFILE="{{ jvm_zipfile }}"
 
+    - debug: msg="JDK_URL={{ JDK_URL }}"
     - when: JDK_URL == ""
       block:
       - debug: msg="No JDK url specified"
