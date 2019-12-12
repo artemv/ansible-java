@@ -6,5 +6,7 @@ INSTALL_JCE: True
 REMOVE_INSTALL_FILES: True
 
 JCE_URL: http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
+JDK_URL: https://releases.papertrail.co.za/public/file/Java/jdk-8u212-linux-x64.tar.gz/jdk-8u212-linux-x64.tar.gz
+JVM_ZIPFILE: jdk-8u212-linux-x64.tar.gz
 validate_certs: True
 upgrade: False
