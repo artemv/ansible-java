@@ -1,5 +1,4 @@
-artemv.java [![Build Status](https://travis-ci.org/artemv/ansible-java.svg?branch=master)](https://travis-ci.org/artemv/ansible-java)
-=========
+egis_kevin.java [![Build Status](https://travis-ci.org/Egis-Kevin/ansible-java.svg?branch=master)](https://travis-ci.org/Egis-Kevin/ansible-java)
 
 Install the latest Oracle JDK 8 with JCE extensions and various java packages.
 
